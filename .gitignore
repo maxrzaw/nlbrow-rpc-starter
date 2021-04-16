@@ -1,0 +1,12 @@
+# Ignore everything and then add back the files I want.
+*
+!.gitignore
+!client_library.cpp
+!client_library.h
+!client.cpp
+!Makefile
+!network.cpp
+!network.h
+!README.md
+!server.cpp
+!server.h
