@@ -2,8 +2,10 @@
 
 using namespace std;
 
-int main(int argc, char *argv[]) {
-    if (argc != 2) {
+int main(int argc, char *argv[])
+{
+    if (argc != 2)
+    {
         cout << "ERROR: Usage is './client <port>'" << endl;
         return 0;
     }

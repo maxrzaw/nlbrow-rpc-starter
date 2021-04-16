@@ -13,6 +13,24 @@
 #include <netinet/in.h>
 
 /*
+ * PROTOCOL:
+ *
+ * std::string:
+ * Header [string bytes]
+ * 
+ * Header:
+ * how long the following thing is
+ * uint64_t
+ * 
+ * 
+ * std::list<std::string>:
+ * Header [list of strings following above format]
+ * 
+ * Header:
+ * uint64_t # of strings
+ */
+
+/*
  * Need to do four things:
  * 1) Need to definine a network protocol: How to represent a std::list<std::string> in send() and recv() calls.
  *    For fun, allow the std::strings to contain null characters (i.e. they were constructed from a std::string(char_ptr, size) call)

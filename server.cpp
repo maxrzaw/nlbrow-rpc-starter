@@ -15,8 +15,10 @@
 
 using namespace std;
 
-int main(int argc, char** argv) {
-    if (argc != 2) {
+int main(int argc, char **argv)
+{
+    if (argc != 2)
+    {
         cerr << "ERROR: Usage is './server <port>'" << endl;
         return 0;
     }
@@ -31,13 +33,15 @@ int main(int argc, char** argv) {
     addr.sin_addr.s_addr = INADDR_ANY;
     addr.sin_port = htons(port);
 
-    if (::bind(sockfd, (sockaddr *) &addr, sizeof(addr)) == -1) {
+    if (::bind(sockfd, (sockaddr *)&addr, sizeof(addr)) == -1)
+    {
         perror("Error in bind!");
         return -1;
     }
 
     socklen_t length = sizeof(addr);
-    if (getsockname(sockfd, (sockaddr *) &addr, &length) == -1) {
+    if (getsockname(sockfd, (sockaddr *)&addr, &length) == -1)
+    {
         perror("Error getting port of socket");
         return -1;
     }
@@ -47,9 +51,11 @@ int main(int argc, char** argv) {
 
     listen(sockfd, 5);
 
-    while (true) {
+    while (true)
+    {
         int connectionfd = accept(sockfd, 0, 0);
-        if (connectionfd == -1) {
+        if (connectionfd == -1)
+        {
             perror("Error accepting connection");
             return -1;
         }
@@ -57,17 +63,25 @@ int main(int argc, char** argv) {
     }
 }
 
-void append(char c, std::list<std::string>& list) {
-    for(std::string& s : list) {
+void append(char c, std::list<std::string> &list)
+{
+    for (std::string &s : list)
+    {
         s.push_back(c);
     }
 }
 
-void server_append(int sock) {
-    // TODO: Implement this.
+void server_append(int sock)
+{
     // Remember: recv(socket_fd, var_receiving_into, sizeof_var, MSG_WAITALL)
     // Use your network protocol to decode the character to append and the list to append it to
     // Do the append
     // Send the new list back
     // Close the socket!
+    char c;
+    recv(sock, &c, sizeof(c), MSG_WAITALL);
+    std::list<std::string> l = recvList(sock);
+    append(c, l);
+    sendList(sock, l);
+    close(sock);
 }
